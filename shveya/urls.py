@@ -18,15 +18,15 @@ from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework import permissions
-# from rest_framework.routers import SimpleRouter
+from rest_framework.routers import SimpleRouter
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 # from category.views import CategoryViewSet
-# from product.views import ProductViewSet
+from product.views import ProductViewSet
 
-# router = SimpleRouter()
+router = SimpleRouter()
 # router.register('categories', CategoryViewSet)
-# router.register('products', ProductViewSet)
+router.register('products', ProductViewSet)
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -50,7 +50,7 @@ urlpatterns = [
     path('api/v1/account/', include('account.urls')),
     # path('api/v1/reviews/', include('rating.urls')),
     # path('api/v1/orders/', include('order.urls')),
-    # path('api/v1/', include(router.urls))
+    path('api/v1/', include(router.urls))
 ]
 
 
