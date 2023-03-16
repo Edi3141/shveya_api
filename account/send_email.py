@@ -30,3 +30,5 @@ def send_notification(user_email, order_id, price):
               [user_email, ],
               fail_silently=False
               )
+
+# added link
