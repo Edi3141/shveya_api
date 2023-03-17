@@ -1,12 +1,20 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import permissions, response
+from rest_framework import permissions
 from rest_framework.decorators import action
 # from rating.serializers import ReviewSerializer, ReviewActionSerializer
-from .models import Product
+from .models import Product, Favorites
 from . import serializers
-
+from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
 
 from rest_framework.permissions import BasePermission
+
+
+class StandartResultPagination(PageNumberPagination):
+    page_size = 6
+    page_query_param = 'page'
 
 
 class IsAuthor(BasePermission):
@@ -16,6 +24,10 @@ class IsAuthor(BasePermission):
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
+    pagination_class = StandartResultPagination
+    filter_backends = (SearchFilter, DjangoFilterBackend)
+    search_fields = ('title', 'price')
+    filterset_fields = ('price', 'title')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -29,6 +41,21 @@ class ProductViewSet(ModelViewSet):
         if self.action in ('update', 'partial_update', 'destroy'):
             return [permissions.IsAuthenticated(), IsAuthor()]
         return [permissions.IsAuthenticatedOrReadOnly()]
+
+    @action(['POST', 'DELETE'], detail=True)
+    def favorites(self, request, pk):
+        product = self.get_object()
+        user = request.user
+        if request.method == 'POST':
+            if user.favorites.filter(product=product).exists():
+                return Response('This product is already in favorites!', status=400)
+            Favorites.objects.create(owner=user, product=product)
+            return Response('Added to favorites!', status=201)
+        else:
+            if user.favorites.filter(product=product).exists():
+                user.favorites.filter(product=product).delete()
+                return Response('Deleted from favorites!', status=204)
+            return Response('Product is not found!', status=404)
 
     # @action(['GET', 'POST'], detail=True)
     # def reviews(self, request, pk):

@@ -21,14 +21,14 @@ from rest_framework import permissions
 from rest_framework.routers import SimpleRouter
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-<<<<<<< HEAD
+
 # from category.views import CategoryViewSet
 from product.views import ProductViewSet
 
 router = SimpleRouter()
 # router.register('categories', CategoryViewSet)
 router.register('products', ProductViewSet)
-=======
+
 from category.views import CategoryViewSet, SubcategoryViewSet
 # from product.views import ProductViewSet
 
@@ -36,7 +36,7 @@ router = SimpleRouter()
 router.register('categories', CategoryViewSet)
 router.register('subcategories', SubcategoryViewSet)
 # router.register('products', ProductViewSet)
->>>>>>> a14f642b0e2918979b26b0dfa1f480ecb8aed2da
+
 
 schema_view = get_schema_view(
    openapi.Info(
