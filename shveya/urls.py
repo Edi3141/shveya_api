@@ -18,16 +18,22 @@ from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework import permissions
-from rest_framework.routers import SimpleRouter
+from rest_framework import routers
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+
 # from category.views import CategoryViewSet
+
+from category.views import CategoryViewSet, SubcategoryViewSet
+
 from product.views import ProductViewSet
 
-router = SimpleRouter()
-# router.register('categories', CategoryViewSet)
+router = routers.DefaultRouter()
+router.register(r'categories', CategoryViewSet)
+router.register(r'subcategories', SubcategoryViewSet)
 router.register('products', ProductViewSet)
+
 
 from category.views import CategoryViewSet, SubcategoryViewSet
 # from product.views import ProductViewSet
@@ -36,6 +42,7 @@ router = SimpleRouter()
 router.register('categories', CategoryViewSet)
 router.register('subcategories', SubcategoryViewSet)
 # router.register('products', ProductViewSet)
+
 
 
 schema_view = get_schema_view(
