@@ -4,6 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 
+from account.models import Personal
+
 User = get_user_model()
 
 
@@ -77,3 +79,9 @@ class RestorPasswordSerializer(serializers.Serializer):
         user.activation_code = ''
         user.save()
         return user
+
+
+class PersonalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Personal
+        fields = ('user', 'name', 'number', 'email', 'address', 'image')
