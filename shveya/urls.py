@@ -22,15 +22,15 @@ from rest_framework import routers
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-
+from account.views import PersonalViewSet
 from category.views import CategoryViewSet, SubcategoryViewSet
-
 from product.views import ProductViewSet
 
 router = routers.DefaultRouter()
 router.register(r'categories', CategoryViewSet)
 router.register(r'subcategories', SubcategoryViewSet)
 router.register('products', ProductViewSet)
+router.register('personal', PersonalViewSet)
 
 
 schema_view = get_schema_view(
