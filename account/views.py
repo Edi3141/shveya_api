@@ -6,11 +6,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .models import Personal
+from .models import Personal, UserProfile
 # from shveya.tasks import send_confirm_email_task
 from .send_email import send_reset_email
 from . import serializers
 from .send_email import send_confirmation_email
+from .serializers import UserProfileSerializer
 
 User = get_user_model()
 
@@ -98,3 +99,8 @@ class UserListApiView(ListAPIView):
 class PersonalViewSet(ModelViewSet):
     queryset = Personal.objects.all()
     serializer_class = serializers.PersonalSerializer
+
+
+class UserProfileViewSet(ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer

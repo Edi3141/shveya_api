@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 
-from account.models import Personal
+from account.models import Personal, UserProfile
 
 User = get_user_model()
 
@@ -85,3 +85,9 @@ class PersonalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Personal
         fields = ('user', 'name', 'number', 'email', 'address', 'image')
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('id', 'name', 'contact_number', 'email', 'photo')
