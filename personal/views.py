@@ -6,3 +6,7 @@ from personal.models import Personal
 class PersonalViewSet(ModelViewSet):
     queryset = Personal.objects.all()
     serializer_class = serializers.PersonalSerializer
+
+#ToDo
+# Add Favorites
+# Add Products
