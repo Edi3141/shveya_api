@@ -24,12 +24,15 @@ from drf_yasg import openapi
 
 
 from category.views import CategoryViewSet, SubcategoryViewSet
+from deals.views import DealViewSet, DealCategoryViewSet
 from personal.views import PersonalViewSet
 from product.views import ProductViewSet
 
 router = routers.DefaultRouter()
 router.register(r'categories', CategoryViewSet)
 router.register(r'subcategories', SubcategoryViewSet)
+router.register(r'deals', DealViewSet)
+router.register(r'deals_category', DealCategoryViewSet)
 router.register('products', ProductViewSet)
 router.register('personal', PersonalViewSet)
 
