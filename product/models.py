@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from ckeditor.fields import RichTextField
 from category.models import Subcategory
+from deals.models import Deals
 
 User = get_user_model()
 
@@ -23,11 +24,11 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images')
     price = models.DecimalField(max_digits=12, decimal_places=2)
     category = models.ForeignKey(Subcategory, related_name='products', on_delete=models.RESTRICT)
+    deal = models.ForeignKey(Deals, related_name='products', on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
-
 
 
 class Favorites(models.Model):
