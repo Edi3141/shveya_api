@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'category',
     'personal',
     'deals',
+    'jobs',
 ]
 
 
