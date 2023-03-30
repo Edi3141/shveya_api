@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from ckeditor.fields import RichTextField
 from category.models import Subcategory
-from deals.models import Deals
+from deals.models import Deals, DealCategory
 from django.core.validators import RegexValidator
 
 User = get_user_model()
@@ -28,7 +28,7 @@ class Product(models.Model):
     category = models.ForeignKey(Subcategory, related_name='products', on_delete=models.RESTRICT)
     phonenumberregex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
     phonenumber = models.CharField(validators=[phonenumberregex], max_length=16, unique=True)
-    deal = models.ForeignKey(Deals, related_name='products', on_delete=models.RESTRICT)
+    deal = models.ForeignKey(DealCategory, related_name='products', on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
