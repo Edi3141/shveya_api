@@ -25,8 +25,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images')
     price = models.DecimalField(max_digits=12, decimal_places=2)
     category = models.ForeignKey(Subcategory, related_name='products', on_delete=models.RESTRICT)
-    phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
-    phoneNumber = models.CharField(validators=[phoneNumberRegex], max_length=16, unique=True)
+    phonenumberregex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
+    phonenumber = models.CharField(validators=[phonenumberregex], max_length=16, unique=True)
     deal = models.ForeignKey(Deals, related_name='products', on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
 
